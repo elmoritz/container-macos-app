@@ -21,9 +21,7 @@ let package = Package(
             targets: ["MyMacOSAppServices"]
         ),
     ],
-    dependencies: [
-        .package(url: "https://github.com/apple/containerization", from: "0.4.0")
-    ],
+    dependencies: [],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
@@ -32,9 +30,6 @@ let package = Package(
         ),
         .target(
             name: "MyMacOSAppServices",
-            dependencies: [
-                .product(name: "Containerization", package: "containerization")
-            ]
         ),
         .target(
             name: "MyMacOSAppFeature",
