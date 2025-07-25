@@ -29,13 +29,17 @@ let package = Package(
             name: "MyMacOSAppUIComponents"
         ),
         .target(
+            name: "GameEngine"
+        ),
+        .target(
             name: "MyMacOSAppServices",
         ),
         .target(
             name: "MyMacOSAppFeature",
             dependencies: [
                 "MyMacOSAppUIComponents",
-                "MyMacOSAppServices"
+                "MyMacOSAppServices",
+                "GameEngine"
             ]
         ),
         .testTarget(
