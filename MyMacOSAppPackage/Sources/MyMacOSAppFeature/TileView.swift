@@ -11,6 +11,7 @@ import GameEngine
 struct TileView: View {
     let tile: Tile
     let dimension: CGFloat = 32
+    let onHoverTile: ((Tile?) -> Void)? // ⬅️ New callback
     @State private var isHovered: Bool = false
     @State private var isSelected: Bool = false
 
@@ -32,6 +33,7 @@ struct TileView: View {
         }
         .onHover { hovering in
             isHovered = hovering
+            onHoverTile?(hovering ? tile : nil) // ⬅️ Inform parent
         }
     }
 
@@ -70,9 +72,9 @@ struct TileView: View {
         case .end:
             VStack(spacing: 0) {
                 Rectangle()
-                    .frame(height: dimension * 0.6)
+                    .frame(height: dimension * 0.5)
                     .opacity(0.0)
-                Rectangle().frame(width: dimension * 0.4, height: dimension * 0.4)
+                Rectangle().frame(width: dimension * 0.5, height: dimension * 0.5)
             }
         }
     }

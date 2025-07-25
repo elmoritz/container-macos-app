@@ -172,23 +172,23 @@ public enum TileType: String, Codable, CaseIterable {
         case .roadCornerBL, .wallCornerBL:
             return TileVisualStyle(baseColor: baseColor, shape: .corner, rotation: 270, overlayColors: overlayColors)
         case .roadTJunctionUp, .wallTJunctionUp:
-            return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 0, overlayColors: overlayColors)
-        case .roadTJunctionRight, .wallTJunctionRight:
-            return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 90, overlayColors: overlayColors)
-        case .roadTJunctionDown, .wallTJunctionDown:
             return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 180, overlayColors: overlayColors)
-        case .roadTJunctionLeft, .wallTJunctionLeft:
+        case .roadTJunctionRight, .wallTJunctionRight:
             return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 270, overlayColors: overlayColors)
+        case .roadTJunctionDown, .wallTJunctionDown:
+            return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 0, overlayColors: overlayColors)
+        case .roadTJunctionLeft, .wallTJunctionLeft:
+            return TileVisualStyle(baseColor: baseColor, shape: .tJunction, rotation: 90, overlayColors: overlayColors)
         case .roadCrossroad, .wallCrossroad:
             return TileVisualStyle(baseColor: baseColor, shape: .cross, rotation: 0, overlayColors: overlayColors)
         case .roadDeadEndUp, .wallDeadEndUp:
-            return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 0, overlayColors: overlayColors)
-        case .roadDeadEndRight, .wallDeadEndRight:
-            return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 90, overlayColors: overlayColors)
-        case .roadDeadEndDown, .wallDeadEndDown:
             return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 180, overlayColors: overlayColors)
-        case .roadDeadEndLeft, .wallDeadEndLeft:
+        case .roadDeadEndRight, .wallDeadEndRight:
             return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 270, overlayColors: overlayColors)
+        case .roadDeadEndDown, .wallDeadEndDown:
+            return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 0, overlayColors: overlayColors)
+        case .roadDeadEndLeft, .wallDeadEndLeft:
+            return TileVisualStyle(baseColor: baseColor, shape: .end, rotation: 90, overlayColors: overlayColors)
         case .flat:
                 return TileVisualStyle(baseColor: .brown, shape: .square, rotation: 0, overlayColors: overlayColors)
         case .void:

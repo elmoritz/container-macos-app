@@ -15,14 +15,7 @@ struct BoardView: View {
     let xOffset: Int
     let yOffset: Int
     let space: CGFloat = 1
-
-    init(board: Board, width: Int, height: Int, xOffset: Int = 0, yOffset: Int = 0) {
-        self.board = board
-        self.width = width
-        self.height = height
-        self.xOffset = xOffset
-        self.yOffset = yOffset
-    }
+    @Binding var hoveredTile: Tile?
 
     var body: some View {
         VStack(spacing: space) {
@@ -31,7 +24,9 @@ struct BoardView: View {
                     ForEach(0..<width, id: \.self) { col in
                         let pos = Position(x: col + xOffset, y: row + yOffset)
                         if let tile = board[pos] {
-                            TileView(tile: tile)
+                            TileView(tile: tile) { hovered in
+                                hoveredTile = hovered
+                            }
                         } else {
                             Color.clear.frame(width: 32, height: 32)
                         }

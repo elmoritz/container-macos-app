@@ -16,6 +16,7 @@ struct ViewportBoardView: View {
 
     @State private var zoom: CGFloat = 2.0
     @State private var center = Position(x: 64, y: 64)
+    @Binding var hoveredTile: Tile?
     private let tileSize: CGFloat = 32
     private let viewportPixelSize = CGSize(width: 960, height: 640)
 
@@ -49,7 +50,8 @@ struct ViewportBoardView: View {
                          width: maxX - minX + 1,
                          height: maxY - minY + 1,
                          xOffset: minX,
-                         yOffset: minY)
+                         yOffset: minY,
+                         hoveredTile: $hoveredTile)
     }
 
     private var zoomAndPanControls: some View {
