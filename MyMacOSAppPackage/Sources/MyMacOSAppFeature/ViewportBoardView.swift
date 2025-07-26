@@ -11,8 +11,8 @@ import GameEngine
 
 struct ViewportBoardView: View {
     let fullBoard: Board
-    let boardWidth: Int
-    let boardHeight: Int
+    private var boardWidth: Int { fullBoard.dimensions.width }
+    private var boardHeight: Int { fullBoard.dimensions.height }
 
     @State private var zoom: CGFloat = 2.0
     @State private var center = Position(x: 64, y: 64)
