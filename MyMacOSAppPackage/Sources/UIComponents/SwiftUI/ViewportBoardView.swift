@@ -42,9 +42,9 @@ struct ViewportBoardView: View {
         let minY = max(center.y - tilesHigh / 2, 0)
         let maxY = min(center.y + tilesHigh / 2, boardHeight - 1)
 
-        let visibleBoard: Board = fullBoard.filter { pos, _ in
+        let visibleBoard: Board = Board(fullBoard: fullBoard.map.filter { pos, _ in
             pos.x >= minX && pos.x <= maxX && pos.y >= minY && pos.y <= maxY
-        }
+        })
 
         return BoardView(board: visibleBoard,
                          width: maxX - minX + 1,
@@ -56,15 +56,25 @@ struct ViewportBoardView: View {
 
     private var zoomAndPanControls: some View {
         VStack {
-            Slider(value: $zoom, in: 0.5...4.0, step: 0.1)
+            Slider(value: $zoom, in: 0.1...4.0, step: 0.1)
                 .padding(.horizontal)
             Text("Zoom: \(String(format: "%.1fx", zoom))")
 
             HStack {
-                Button("←") { center = center.set(x: max(center.x - 1, 0))  }
-                Button("↑") { center = center.set(y: max(center.y - 1, 0)) }
-                Button("↓") { center = center.set(y: min(center.y + 1, boardHeight - 1)) }
-                Button("→") { center = center.set(x: min(center.x + 1, boardWidth - 1)) }
+                Button("←") {
+                    if center.x > 0 {
+                        center = center.set(x: max(center.x - 1, 0))
+                    }
+                }
+                Button("↑") {
+                    center = center.set(y: max(center.y - 1, 0))
+                }
+                Button("↓") {
+                    center = center.set(y: min(center.y + 1, boardHeight - 1))
+                }
+                Button("→") {
+                    center = center.set(x: min(center.x + 1, boardWidth - 1))
+                }
             }
         }
         .padding()

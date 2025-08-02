@@ -50,15 +50,8 @@ struct TileView: View {
                 }.compositingGroup()
             case .corner:
                 ZStack {
-                    VStack(spacing: 0) {
-                        Rectangle().frame(width: dimension / 3, height: dimension / 2.9)
-                        Rectangle().frame(width: dimension, height: dimension / 3 * 2).opacity(0.0)
-                    }
-                    corner
-                    HStack(spacing: 0) {
-                        Rectangle().frame(width: dimension / 2.9, height: dimension / 3)
-                        Rectangle().frame(width: dimension / 3 * 2, height: dimension / 3).opacity(0.0)
-                    }
+                    bigCorner
+                    smallCorner.blendMode(.destinationOut)
                 }.compositingGroup()
             case .tJunction:
                 VStack(spacing: 0) {
@@ -79,12 +72,26 @@ struct TileView: View {
         }
     }
 
-    var corner: some View {
+    var bigCorner: some View {
         Path { path in
-            let point0 = Calculator.calculate(x: 1, y: 1, in: dimension)
+            let point0 = Calculator.calculate(x: 0, y: 0, in: dimension)
             path.move(to: point0)
+
             path.addArc(center: point0,
-                        radius: dimension / 3,
+                        radius: (dimension / 3 * 2) * 1.01,
+                        startAngle: .degrees(0),
+                        endAngle: .degrees(90),
+                        clockwise: false)
+        }
+    }
+
+    var smallCorner: some View {
+        Path { path in
+            let point0 = Calculator.calculate(x: 0, y: 0, in: dimension)
+            path.move(to: point0)
+
+            path.addArc(center: point0,
+                        radius: (dimension / 3) * 0.98,
                         startAngle: .degrees(0),
                         endAngle: .degrees(90),
                         clockwise: false)
@@ -150,3 +157,30 @@ enum Calculator {
     .border(Color.yellow)
     .padding()
 }
+
+#Preview("BoardView") {
+    BoardView(
+        board: roundTripBoard,
+        width: 3,
+        height: 3,
+        xOffset: 0,
+        yOffset: 0,
+        hoveredTile: .constant(nil)
+    )
+    .scaleEffect(5)
+    .frame(width: 500, height: 500)
+}
+
+#if DEBUG
+nonisolated(unsafe) let roundTripBoard: Board = Board(fullBoard:[
+    Position(x: 0, y: 0):.init(type: .roadCornerBR, position: .zero),
+    Position(x: 1, y: 0):.init(type: .roadStraightHorizontal, position: .zero),
+    Position(x: 2, y: 0):.init(type: .roadCornerBL, position: .zero),
+    Position(x: 0, y: 1):.init(type: .roadStraightVertical, position: .zero),
+    Position(x: 1, y: 1):.init(type: .roadCrossroad, position: .zero),
+    Position(x: 2, y: 1):.init(type: .roadStraightVertical, position: .zero),
+    Position(x: 0, y: 2):.init(type: .roadCornerTR, position: .zero),
+    Position(x: 1, y: 2):.init(type: .roadStraightHorizontal, position: .zero),
+    Position(x: 2, y: 2):.init(type: .wallCornerTL, position: .zero),
+])
+#endif

@@ -14,7 +14,7 @@ struct BoardView: View {
     let height: Int
     let xOffset: Int
     let yOffset: Int
-    let space: CGFloat = 1
+    var space: CGFloat = 0
     @Binding var hoveredTile: Tile?
 
     var body: some View {
