@@ -1,0 +1,34 @@
+{
+  "appVersion" : "1.0",
+  "exportedAt" : "2025-08-17T15:54:32Z",
+  "kind" : "ridged",
+  "settings" : {
+    "displacement" : 0.6,
+    "distanceEnabled" : false,
+    "frequency" : 0.8500000000000001,
+    "highColor" : {
+      "a" : 1,
+      "b" : 0,
+      "g" : 0.9855536819,
+      "r" : 0.9994240403
+    },
+    "invert" : false,
+    "lacunarity" : 3.1,
+    "liveUpdate" : true,
+    "lowColor" : {
+      "a" : 1,
+      "b" : 1,
+      "g" : 0.1983509958,
+      "r" : 0.01680417731
+    },
+    "octaveCount" : 6,
+    "persistence" : 0.5,
+    "radialFrequency" : 10.100000000000001,
+    "sampleCount" : 512,
+    "seamless" : true,
+    "seed" : -2071660599,
+    "squareSize" : 1,
+    "value" : 0,
+    "zoom" : 0.84
+  }
+}

@@ -8,6 +8,7 @@
 
 import SpriteKit
 import GameEngine
+import GameplayKit
 
 final class BoardScene: SKScene {
     let board: Board
@@ -29,9 +30,10 @@ final class BoardScene: SKScene {
         camera = cameraNode
         addChild(cameraNode)
         cameraNode.position = CGPoint(x: size.width / 2, y: size.height / 2)
-        cameraNode.setScale(1.0)
+        cameraNode.setScale(2.0)
     }
 
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -63,6 +65,8 @@ final class BoardScene: SKScene {
         cameraNode.position.y -= delta.y
 
         lastMousePosition = currentPosition
+
+
     }
 
     override func mouseUp(with event: NSEvent) {

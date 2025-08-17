@@ -10,7 +10,7 @@ public struct Board {
     private var fullBoard: Dictionary<Position, Tile>
 
     public init(fullBoard: Dictionary<Position, Tile>) {
-        self.fullBoard = fullBoard.cleanedUp()
+        self.fullBoard = fullBoard
     }
 
     public var map: Dictionary<Position, Tile> {
@@ -21,16 +21,12 @@ public struct Board {
         fullBoard.dimensions
     }
 
-    mutating func cleanUp() {
-        fullBoard.cleanUp()
-    }
-
-    public func extractGrid(numberOfNeighbors: Int, selectedTile: Tile) -> Dictionary<Position, Tile> {
-        fullBoard.extractGrid(numberOfNeighbors: numberOfNeighbors, selectedTile: selectedTile)
+    public func extractGrid(numberOfNeighbors: Int, selectedTilePosition position: Position) -> Dictionary<Position, Tile> {
+        fullBoard.extractGrid(numberOfNeighbors: numberOfNeighbors, selectedTilePosition: position)
     }
 
     public func tile(at position: Position) -> Tile? {
-        fullBoard.values.first(where: { $0.position == position})
+        fullBoard[position]
     }
 
     public subscript(position: Position) -> Tile? {
@@ -66,22 +62,8 @@ extension Dictionary where Key == Position, Value == Tile {
         )
     }
 
-    mutating func cleanUp() {
-        var copy = self
-        for (pos, tile) in self {
-            copy[pos] = tile.set(position: pos)
-        }
-        self = copy
-    }
-
-    func cleanedUp() -> Self {
-        var copy = self
-        copy.cleanUp()
-        return copy
-    }
-
-    func extractGrid(numberOfNeighbors: Int, selectedTile: Tile) -> Self {
-        let center = selectedTile.position
+    func extractGrid(numberOfNeighbors: Int, selectedTilePosition position: Position) -> Self {
+        let center = position
         let minX = center.x - numberOfNeighbors
         let maxX = center.x + numberOfNeighbors
         let minY = center.y - numberOfNeighbors
@@ -95,7 +77,7 @@ extension Dictionary where Key == Position, Value == Tile {
                 if let tile = self[pos] {
                     // Normalize positions so that the selected tile is always at the center of the new board
                     let normalized = Position(x: x - minX, y: y - minY)
-                    result[normalized] = tile.set(position: normalized)
+                    result[normalized] = tile
                 }
             }
         }

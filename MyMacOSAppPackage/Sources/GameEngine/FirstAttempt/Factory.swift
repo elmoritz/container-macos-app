@@ -16,7 +16,7 @@ public enum Factory {
         for y in 0..<height {
             for x in 0..<width {
                 let pos = Position(x: x, y: y)
-                board[pos] = Tile(type: .flat, position: pos)
+                board[pos] = Tile(type: .flat)
             }
         }
         return Board(fullBoard: board)
@@ -40,7 +40,7 @@ public enum Factory {
                 default: typeCategory = .flat
                 }
 
-                board[pos] = Tile(type: typeCategory, position: pos)
+                board[pos] = Tile(type: typeCategory)
             }
         }
 
@@ -61,7 +61,7 @@ public enum Factory {
                 newType = tile.type
             }
 
-            board[pos] = Tile(type: newType, position: pos)
+            board[pos] = Tile(type: newType)
         }
 
         return Board(fullBoard: board)
@@ -117,7 +117,7 @@ public enum Factory {
                 let theme = regionThemes[region]
                 let type = theme[Int(rng.next() % UInt64(theme.count))]
                 let overlay = overlayByRegion[region]
-                board[pos] = Tile(type: type, position: pos, overlays: overlay.map { [$0] } ?? [])
+                board[pos] = Tile(type: type, overlays: overlay.map { [$0] } ?? [])
             }
         }
 
@@ -144,7 +144,7 @@ public enum Factory {
 
         // Place wallCrossroad at collected wall positions
         for pos in wallPositions {
-            board[pos] = Tile(type: .wallCrossroad, position: pos)
+            board[pos] = Tile(type: .wallCrossroad)
         }
 
         // Step 6: Resolve tile type shapes
@@ -161,7 +161,7 @@ public enum Factory {
                 newType = tile.type
             }
 
-            board[pos] = Tile(type: newType, position: pos)
+            board[pos] = Tile(type: newType)
         }
 
         return Board(fullBoard: board)
@@ -189,7 +189,7 @@ public enum Factory {
                     typeCategory = .flat
                 }
 
-                board[pos] = Tile(type: typeCategory, position: pos)
+                board[pos] = Tile(type: typeCategory)
             }
         }
 
@@ -210,7 +210,7 @@ public enum Factory {
                 newType = tile.type
             }
 
-            board[pos] = Tile(type: newType, position: pos)
+            board[pos] = Tile(type: newType)
         }
 
         return Board(fullBoard: board)

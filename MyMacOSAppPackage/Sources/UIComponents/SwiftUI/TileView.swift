@@ -144,11 +144,7 @@ enum Calculator {
 #Preview {
     TileView(
         tile: .init(
-            type: .roadCornerTL,
-            position: .init(
-                x: 0,
-                y: 0
-            )
+            type: .roadCornerTL
         ),
         dimension: 128,
         onHoverTile: {
@@ -173,14 +169,14 @@ enum Calculator {
 
 #if DEBUG
 nonisolated(unsafe) let roundTripBoard: Board = Board(fullBoard:[
-    Position(x: 0, y: 0):.init(type: .roadCornerBR, position: .zero),
-    Position(x: 1, y: 0):.init(type: .roadStraightHorizontal, position: .zero),
-    Position(x: 2, y: 0):.init(type: .roadCornerBL, position: .zero),
-    Position(x: 0, y: 1):.init(type: .roadStraightVertical, position: .zero),
-    Position(x: 1, y: 1):.init(type: .roadCrossroad, position: .zero),
-    Position(x: 2, y: 1):.init(type: .roadStraightVertical, position: .zero),
-    Position(x: 0, y: 2):.init(type: .roadCornerTR, position: .zero),
-    Position(x: 1, y: 2):.init(type: .roadStraightHorizontal, position: .zero),
-    Position(x: 2, y: 2):.init(type: .wallCornerTL, position: .zero),
+    Position(x: 0, y: 0):.init(type: .roadCornerBR),
+    Position(x: 1, y: 0):.init(type: .roadStraightHorizontal),
+    Position(x: 2, y: 0):.init(type: .roadCornerBL),
+    Position(x: 0, y: 1):.init(type: .roadStraightVertical),
+    Position(x: 1, y: 1):.init(type: .roadCrossroad),
+    Position(x: 2, y: 1):.init(type: .roadStraightVertical),
+    Position(x: 0, y: 2):.init(type: .roadCornerTR),
+    Position(x: 1, y: 2):.init(type: .roadStraightHorizontal),
+    Position(x: 2, y: 2):.init(type: .wallCornerTL),
 ])
 #endif

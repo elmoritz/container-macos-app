@@ -13,7 +13,7 @@ struct TileExportView: View {
     var dimension: CGFloat = 128
 
     var body: some View {
-        let dummyTile = Tile(type: type, position: .zero)
+        let dummyTile = Tile(type: type)
         TileView(tile: dummyTile, dimension: dimension, onHoverTile: nil)
     }
 }

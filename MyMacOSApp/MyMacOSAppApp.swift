@@ -1,5 +1,5 @@
 import SwiftUI
-import MyMacOSAppFeature
+import Features
 
 @main
 struct MyMacOSAppApp: App {

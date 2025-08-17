@@ -9,30 +9,34 @@ import SwiftUI
 import GameEngine
 
 public struct DebugTileView: View {
-    @Binding var hoveredTile: Tile?
+    @Binding var hoveredTilePosition: Position?
     let board: Board
 
-    public init(hoveredTile: Binding<Tile?>, board: Board) {
+    public init(hoveredTilePosition: Binding<Position?>, board: Board) {
         self.board = board
-        _hoveredTile = $hoveredTile
+        _hoveredTilePosition = hoveredTilePosition
     }
 
     var surroundingBoard: Board? {
-        guard let hoveredTile else {
+        guard let hoveredTilePosition else {
             return nil
         }
 
-        return Board(fullBoard: board.extractGrid(numberOfNeighbors: 1, selectedTile: hoveredTile))
+        return Board(
+            fullBoard: board.extractGrid(numberOfNeighbors: 1,
+                                         selectedTilePosition: hoveredTilePosition)
+        )
     }
 
     public var body: some View {
         VStack(alignment: .leading) {
             Text("Hovered Tile")
                 .bold()
-            if let tile = hoveredTile {
+            if let tilePosition = hoveredTilePosition,
+               let tile = board.tile(at: tilePosition) {
                 Group {
                     Text("Type: \(tile.type.rawValue)")
-                    Text("Position: (\(tile.position.x), \(tile.position.y))")
+                    Text("Position: (\(tilePosition.x), \(tilePosition.y))")
                     if !tile.overlays.isEmpty {
                         Text("Overlays: \(tile.overlays.map(\.rawValue).joined(separator: ", "))")
                     }
@@ -75,7 +79,7 @@ public struct DebugTileView: View {
 
 #Preview {
     DebugTileView(
-        hoveredTile: .constant(debugBoard.tile(at: Position(x: 1, y: 1))),
+        hoveredTilePosition: .constant(Position(x: 1, y: 1)),
         board: debugBoard
     )
 }
@@ -83,14 +87,14 @@ public struct DebugTileView: View {
 #if DEBUG
 nonisolated(unsafe) let debugBoard: Board =
 Board(fullBoard: [
-    Position(x: 0, y: 0):.init(type: .roadCornerBR, position: .zero),
-    Position(x: 1, y: 0):.init(type: .roadStraightHorizontal, position: .zero),
-    Position(x: 2, y: 0):.init(type: .roadCornerBL, position: .zero),
-    Position(x: 0, y: 1):.init(type: .roadStraightVertical, position: .zero),
-    Position(x: 1, y: 1):.init(type: .roadCrossroad, position: .zero),
-    Position(x: 2, y: 1):.init(type: .roadStraightVertical, position: .zero),
-    Position(x: 0, y: 2):.init(type: .roadCornerTR, position: .zero),
-    Position(x: 1, y: 2):.init(type: .roadStraightHorizontal, position: .zero),
-    Position(x: 2, y: 2):.init(type: .wallCornerTL, position: .zero),
+    Position(x: 0, y: 0):.init(type: .roadCornerBR),
+    Position(x: 1, y: 0):.init(type: .roadStraightHorizontal),
+    Position(x: 2, y: 0):.init(type: .roadCornerBL),
+    Position(x: 0, y: 1):.init(type: .roadStraightVertical),
+    Position(x: 1, y: 1):.init(type: .roadCrossroad),
+    Position(x: 2, y: 1):.init(type: .roadStraightVertical),
+    Position(x: 0, y: 2):.init(type: .roadCornerTR),
+    Position(x: 1, y: 2):.init(type: .roadStraightHorizontal),
+    Position(x: 2, y: 2):.init(type: .wallCornerTL),
 ])
 #endif
